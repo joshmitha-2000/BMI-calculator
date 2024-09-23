@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body{
+            display: flex;
+            place-content: center;
+        }
+        .container{
+            height: 40%;
+            width: 30%;
+            border: 1px solid black;
+            margin-top: 13%;
+            padding: 10px;
+            background-color: beige;
+        }
+        .container > input[type="text"]{
+            margin: 10px;
+            width: 60%;
+        }
+        button{
+            margin-left: 170px;
+            padding: 5px;
+            background-color: blue;
+            border: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <label for="weight">Weight in KG: </label>
+        <input type="text" id="weight"><br>
+        <label for="height">Height in CM: </label>
+        <input type="text" id="height"><br><br>
+        <button onclick="calculateBMI()">Calculate</button>
+        <p>Result: <span id="bmiResult"></span></p>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            let weight = parseFloat(document.getElementById("weight").value);
+            let heightInCm = parseFloat(document.getElementById("height").value);
+
+            if (isNaN(weight) || isNaN(heightInCm) || weight <= 0 || heightInCm <= 0) {
+                document.getElementById("bmiResult").innerText = "Please enter valid numbers.";
+                return;
+            }
+
+            // Convert height from centimeters to meters
+            let heightInMeters = heightInCm / 100;
+
+           
+            let bmi = weight / (heightInMeters * heightInMeters);
+            bmi = bmi.toFixed(2); 
+
+            document.getElementById("bmiResult").innerText = bmi;
+
+           
+            if (bmi < 18.5) {
+                document.getElementById("bmiResult").innerText += " (Underweight)";
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                document.getElementById("bmiResult").innerText += " (Normal weight)";
+            } else if (bmi >= 25 && bmi < 29.9) {
+                document.getElementById("bmiResult").innerText += " (Overweight)";
+            } else {
+                document.getElementById("bmiResult").innerText += " (Obesity)";
+            }
+        }
+        
+            
+    
+    </script>
+</body>
+</html>
+
+<!-- convert height from cm to meters: 152cm/100=1.52 meters
+conver height from inches to cm: [1 inch=2.45cm] [1 feet=12 inches] [1 meter= 100 cm] [1 feet = 30.48 cm] -->
